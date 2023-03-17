@@ -20,8 +20,12 @@ router.get(
             next();
         },
         (req, res, next) => {
+            res.cookie('visited', true, {
+                maxAge: 10000
+            })
             res.send(userList)
         }
+        
         )
 
 router.get(
@@ -29,9 +33,8 @@ router.get(
     (req, res) => {
         const id = parseInt(req.params.id)
         const item = userList.find(data => data.id === id)
-        console.log(item)
+        console.log(req.cookies)
         res.send(item)
-        res.send(200)
     }
     )
 
