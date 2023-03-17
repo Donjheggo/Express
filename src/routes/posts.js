@@ -7,32 +7,33 @@ const postList = [
         id: 1,
         ownerID: 1,
         post: "Test One",
-        comments: 5,
+        likes: 5,
     },
     {
         id: 2,
         ownerID: 2,
         post: "Test Two",
-        comments: 7,
+        likes: 7,
     },
     {
         id: 3,
         ownerID: 3,
         post: "Test Three",
-        comments: 3,
+        likes: 3,
     },
 ]
 
 router.get("/", (req, res) => {
-    const commentsQuery = req.query.comments
-    const comments = parseInt(commentsQuery)
-    if(!isNaN(comments)){
-        const filteredPost = postList.filter(data => data.comments === comments)
+    const likesQuery = req.query.likes
+    const likes = parseInt(likesQuery)
+    if(!isNaN(likes)){
+        const filteredPost = postList.filter(data => data.likes === likes)
         res.send(filteredPost)
     }else{
         res.send(postList)
     }
 })
+
 
 router.get("/:id", (req, res) => {
     const id = parseInt(req.params.id)
