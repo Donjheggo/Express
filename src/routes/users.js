@@ -48,7 +48,7 @@ router.post(
         (req, res, next) => {
             console.log(req.body)
             userList.push(req.body)
-            res.send(201)
+            res.sendStatus(201)
         }
     )
 

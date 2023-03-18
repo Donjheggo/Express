@@ -45,7 +45,7 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
     postList.push(req.body)
     res.send(postList)
-    res.send(201)
+    res.sendStatus(201)
 })
 
 router.get("/library/saves", (req, res) => {
