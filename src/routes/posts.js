@@ -41,10 +41,35 @@ router.get("/:id", (req, res) => {
     res.send(item)
 })
 
-router.post("", (req, res) => {
+
+router.post("/", (req, res) => {
     postList.push(req.body)
     res.send(postList)
     res.send(201)
 })
+
+router.get("/library/saves", (req, res) => {
+    const {saves} = req.session;
+    if(!saves){
+        res.send('You have no save post/s')
+    }else{
+        res.send(saves)
+    }
+});
+
+router.post("/library/saves/post", (req, res) => {
+    const {id, post} = req.body;
+    const postItem = {id, post};
+    const { saves } = req.session;
+    if(saves){
+        req.session.saves.items.push(postItem)
+    }else{
+        req.session.saves = {
+            saves: [postItem]
+        };
+    }
+    res.send(201)
+})
+
 
 module.exports = router
