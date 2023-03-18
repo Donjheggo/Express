@@ -41,11 +41,11 @@ router.get(
 
 router.post(
         '', 
-        (req, res, next) => { 
+        (request, response, next) => { 
         console.log("Middleware test")
         next();
         },
-        (req, res, next) => {
+        (request, response, next) => {
             console.log(request.body)
             userList.push(request.body)
             response.sendStatus(201)
