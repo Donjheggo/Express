@@ -1,26 +1,32 @@
 const { Router } = require('express');
+const passport = require('passport')
 const User = require('../database/schemas/User');
 const {hashPassword, comparePassword} = require('../utils/helpers')
 
 const router = Router();
 
-router.post("/login", async (request, response) => {
-    const {email, password} = request.body;
-    if(!email || !password){
-        return response.sendStatus(400);
-    }
-    const userDB = await User.findOne({ email });
-    if(!userDB){
-        response.sendStatus(401);
-    }
-    const isValid = comparePassword(password, userDB.password);
-    if(isValid){
-        request.session.user = userDB;
-        response.sendStatus(200)
-    }else{
-        response.sendStatus(401)
-    }
-    
+// router.post("/login", async (request, response) => {
+//     const {email, password} = request.body;
+//     if(!email || !password){
+//         return response.sendStatus(400);
+//     }
+//     const userDB = await User.findOne({ email });
+//     if(!userDB){
+//         response.sendStatus(401);
+//     }
+//     const isValid = comparePassword(password, userDB.password);
+//     if(isValid){
+//         request.session.user = userDB;
+//         response.sendStatus(200)
+//     }else{
+//         response.sendStatus(401)
+//     }
+// });
+
+
+router.post("/login", passport.authenticate("local"), (request, response) => {
+    consolelog("Logged In");
+    response.sendStatus(200)
 });
 
 router.post("/register", async (request, response) => {

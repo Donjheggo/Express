@@ -1,11 +1,16 @@
 const express = require('express');
-const cookieParser = require('cookie-parser')
-const session = require('express-session')
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const passport = require('passport');
 
-require('./database')
+
+//// ROUTES /////
 const userRouter = require('./routes/users')
 const postRouter = require('./routes/posts')
 const authRouter = require('./routes/auth');
+
+require('./database');
+require('./strategies/local');
 
 const app = express();
 const PORT = 3001;
@@ -25,6 +30,9 @@ app.use((request, response, next) => {
     next();
 })
 
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/api/v1/auth',authRouter);
 
