@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const User = require('../database/schemas/User');
-const {hashPassword} = require('../utils/helpers')
+const {hashPassword, comparePassword} = require('../utils/helpers')
 
 const router = Router();
 
@@ -13,6 +13,14 @@ router.post("/login", async (request, response) => {
     if(!userDB){
         response.sendStatus(401);
     }
+    const isValid = comparePassword(password, userDB.password);
+    if(isValid){
+        request.session.user = userDB;
+        response.sendStatus(200)
+    }else{
+        response.sendStatus(401)
+    }
+    
 });
 
 router.post("/register", async (request, response) => {
