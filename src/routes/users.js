@@ -15,26 +15,26 @@ const userList = [
 
 router.get(
         '', 
-        (req, res, next) => {
+        (request, response, next) => {
             console.log("Middleware test")
             next();
         },
-        (req, res, next) => {
-            res.cookie('visited', true, {
+        (request, response, next) => {
+            response.cookie('visited', true, {
                 maxAge: 10000
             })
-            res.send(userList)
+            response.send(userList)
         }
         
         )
 
 router.get(
     '/:id',
-    (req, res) => {
-        const id = parseInt(req.params.id)
+    (request, response) => {
+        const id = parseInt(request.params.id)
         const item = userList.find(data => data.id === id)
-        console.log(req.cookies)
-        res.send(item)
+        console.log(request.cookies)
+        response.send(item)
     }
     )
 
@@ -46,9 +46,9 @@ router.post(
         next();
         },
         (req, res, next) => {
-            console.log(req.body)
-            userList.push(req.body)
-            res.sendStatus(201)
+            console.log(request.body)
+            userList.push(request.body)
+            response.sendStatus(201)
         }
     )
 

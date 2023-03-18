@@ -20,8 +20,8 @@ app.use(session({
     saveUninitialized: false
 }));
 
-app.use((req, res, next) => {
-    console.log(`${req.method}: ${req.url}`)
+app.use((request, response, next) => {
+    console.log(`${request.method}: ${request.url}`)
     next();
 })
 
@@ -29,11 +29,11 @@ app.use((req, res, next) => {
 app.use('/api/v1/auth',authRouter);
 
 ///// CHECK IF USER IS AUTHENTICATED //////
-app.use((req, res, next) => { 
-    if(req.session.user){
+app.use((request, response, next) => { 
+    if(request.session.user){
         next();
     }else{
-        res.sendStatus(401);
+        response.sendStatus(401);
     }
 })
 

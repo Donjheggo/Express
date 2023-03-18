@@ -23,52 +23,52 @@ const postList = [
     },
 ]
 
-router.get("/", (req, res) => {
-    const likesQuery = req.query.likes
+router.get("/", (request, response) => {
+    const likesQuery = request.query.likes
     const likes = parseInt(likesQuery)
     if(!isNaN(likes)){
         const filteredPost = postList.filter(data => data.likes === likes)
-        res.send(filteredPost)
+        response.send(filteredPost)
     }else{
-        res.send(postList)
+        response.send(postList)
     }
 })
 
 
-router.get("/:id", (req, res) => {
-    const id = parseInt(req.params.id)
+router.get("/:id", (request, response) => {
+    const id = parseInt(request.params.id)
     const item = postList.find(data => data.id === id)
-    res.send(item)
+    response.send(item)
 })
 
 
-router.post("/", (req, res) => {
-    postList.push(req.body)
-    res.send(postList)
-    res.sendStatus(201)
+router.post("/", (request, response) => {
+    postList.push(request.body)
+    response.send(postList)
+    response.sendStatus(201)
 })
 
-router.get("/library/saves", (req, res) => {
-    const {saves} = req.session;
+router.get("/library/saves", (request, response) => {
+    const {saves} = request.session;
     if(!saves){
-        res.send('You have no save post/s')
+        response.send('You have no save post/s')
     }else{
-        res.send(saves)
+        response.send(saves)
     }
 });
 
-router.post("/library/saves/post", (req, res) => {
-    const {id, post} = req.body;
+router.post("/library/saves/post", (request, response) => {
+    const {id, post} = request.body;
     const postItem = {id, post};
-    const { saves } = req.session;
+    const { saves } = request.session;
     if(saves){
-        req.session.saves.items.push(postItem)
+        request.session.saves.items.push(postItem)
     }else{
-        req.session.saves = {
+        request.session.saves = {
             saves: [postItem]
         };
     }
-    res.send(201)
+    response.send(201)
 })
 
 
