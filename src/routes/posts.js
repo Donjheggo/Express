@@ -77,7 +77,7 @@ router.post("/library/saves/post", (request, response) => {
             saves: [postItem]
         };
     }
-    response.send(201)
+    response.sendStatus(201)
 })
 
 
