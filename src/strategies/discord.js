@@ -1,7 +1,7 @@
 const passport = require('passport');
 const { Strategy } = require('passport-discord');
 const DiscordUser = require('../database/schemas/DiscordUser');
-const Serializer = require('../serializers')
+const Serializer = require('./serializers')
 
 Serializer(DiscordUser)
 

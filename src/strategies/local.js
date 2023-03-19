@@ -1,9 +1,8 @@
 const passport = require("passport");
 const { Strategy } = require("passport-local");
 const User = require('../database/schemas/User')
-const Serializer = require('../serializers')
+const Serializer = require('./serializers')
 const { comparePassword } = require("../utils/helpers")
-
 
 Serializer(User)
 
