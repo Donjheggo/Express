@@ -1,27 +1,11 @@
 const passport = require("passport");
 const { Strategy } = require("passport-local");
 const User = require('../database/schemas/User')
+const Serializer = require('../serializers')
 const { comparePassword } = require("../utils/helpers")
 
-passport.serializeUser( (user, done) => {
-    console.log("Serializing user...");
-    console.log("user")
-    done(null, user.id)
-})
 
-passport.deserializeUser( async (id, done) => {
-    console.log("Deserializing user...");
-    console.log(id)
-    try{
-        const user = await User.findById(id);
-        if(!user) throw new Error("User not found")
-        console.log(user)
-        done(null, user)
-    }catch(error){
-        console.log(error)
-        done(error, null);
-    }
-});
+Serializer(User)
 
 passport.use(
     new Strategy(

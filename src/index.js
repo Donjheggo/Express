@@ -4,14 +4,14 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const passport = require('passport');
 
-
 //// ROUTES /////
 const userRouter = require('./routes/users')
 const postRouter = require('./routes/posts')
 const authRouter = require('./routes/auth');
 
 require('./database');
-require('./strategies/local');
+require('./strategies/discord');
+// require('./strategies/local');
 
 const app = express();
 const PORT = 3001;
