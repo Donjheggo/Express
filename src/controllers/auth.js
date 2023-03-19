@@ -15,21 +15,21 @@ const authRegisterController = async (request, response) => {
   }
 }
 
-const authLoginController = async (request, response) => {
-  const { email, password } = request.body;
-  if (!email || !password) return response.send(400);
-  const userDB = await User.findOne({ email });
-  if (!userDB) return response.send(401);
-  const isValid = comparePassword(password, userDB.password);
-  if (isValid) {
-    console.log('Authenticated Successfully!');
-    request.session.user = userDB;
-    return response.sendStatus(200);
-  } else {
-    console.log('Failed to Authenticate');
-    return response.sendStatus(401);
-  }
-}
+// const authLoginController = async (request, response) => {
+//   const { email, password } = request.body;
+//   if (!email || !password) return response.send(400);
+//   const userDB = await User.findOne({ email });
+//   if (!userDB) return response.send(401);
+//   const isValid = comparePassword(password, userDB.password);
+//   if (isValid) {
+//     console.log('Authenticated Successfully!');
+//     request.session.user = userDB;
+//     return response.sendStatus(200);
+//   } else {
+//     console.log('Failed to Authenticate');
+//     return response.sendStatus(401);
+//   }
+// }
 
 
-module.exports = { authRegisterController, authLoginController };
+module.exports = { authRegisterController };

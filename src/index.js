@@ -4,14 +4,14 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const passport = require('passport');
 
-//// ROUTES /////
+//// ROUTES IMPORT /////
 const userRouter = require('./routes/users')
 const postRouter = require('./routes/posts')
 const authRouter = require('./routes/auth');
 
 require('./database');
+require('./strategies/local');
 require('./strategies/discord');
-// require('./strategies/local');
 
 const app = express();
 const PORT = 3001;
@@ -33,14 +33,10 @@ app.use((request, response, next) => {
     next();
 })
 
-
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/api/v1/auth',authRouter);
-
-
-//////// PROTECTED ROUTES /////////
 app.use('/api/v1/users',userRouter);
 app.use('/api/v1/posts',postRouter);
 
