@@ -13,6 +13,14 @@ const userList = [
     }
 ]
 
+///// CHECK IF USER IS AUTHENTICATED //////
+router.use((request, response, next) => { 
+    console.log("UserList Auth Check Middleware")
+    console.log(request.user)
+    if (request.user) next();
+    else response.sendStatus(401);
+})
+
 router.get(
         '', 
         (request, response, next) => {

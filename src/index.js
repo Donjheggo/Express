@@ -1,6 +1,7 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const passport = require('passport');
 
 
@@ -15,14 +16,16 @@ require('./strategies/local');
 const app = express();
 const PORT = 3001;
 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.use(cookieParser());
 app.use(session({
     secret: "SECRETASDSADSADASDAS",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: 'mongodb://127.0.0.1:27017/express_practice'
+    })
 }));
 
 app.use((request, response, next) => {
@@ -35,8 +38,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/api/v1/auth',authRouter);
-
-///// CHECK IF USER IS AUTHENTICATED //////
 
 
 //////// PROTECTED ROUTES /////////

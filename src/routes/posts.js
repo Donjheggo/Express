@@ -23,7 +23,7 @@ const postList = [
     },
 ]
 
-
+///// CHECK IF USER IS AUTHENTICATED //////
 router.use((request, response, next) => { 
     console.log("Posts Auth Check Middleware")
     console.log(request.user)
