@@ -37,13 +37,6 @@ app.use(passport.session());
 app.use('/api/v1/auth',authRouter);
 
 ///// CHECK IF USER IS AUTHENTICATED //////
-app.use((request, response, next) => { 
-    if(request.session.user){
-        next();
-    }else{
-        response.sendStatus(401);
-    }
-})
 
 
 //////// PROTECTED ROUTES /////////

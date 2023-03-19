@@ -25,7 +25,7 @@ const router = Router();
 
 
 router.post("/login", passport.authenticate("local"), (request, response) => {
-    consolelog("Logged In");
+    console.log("Logged In");
     response.sendStatus(200)
 });
 

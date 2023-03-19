@@ -23,6 +23,15 @@ const postList = [
     },
 ]
 
+
+router.use((request, response, next) => { 
+    console.log("Posts Auth Check Middleware")
+    console.log(request.user)
+    if (request.user) next();
+    else response.sendStatus(401);
+})
+
+
 router.get("/", (request, response) => {
     const likesQuery = request.query.likes
     const likes = parseInt(likesQuery)
